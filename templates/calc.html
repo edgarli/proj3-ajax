@@ -49,8 +49,37 @@
   {% endif %}
 {% endwith %}
 
-<!-- Design on bootstrap grid -->
+
+<!--design for  bravet -->
 <form role="form">
+<div class ="row">
+  <label class ="col-md-1" for ="brevet"> brevet </label>
+    <select class ="dropdown" id = "brevet">
+      <option>200</option>
+      <option>300</option>
+      <option>400</option>
+      <option>600</option>
+      <option>1000</option>
+    </select>
+</div>
+
+<!--design for date -->
+<div class ="row">
+
+  <label class ="col" for = "date">input date</label>
+    <input class ="col--2" id = "date" placeholder ="mm/dd/yyyy">
+</div>
+
+
+<!--design for time -->
+<div class ="row">
+
+  <label class ="col" for ="time">input time</label>
+    <input class = "col-wm-2" id ="time" placeholder = "HH:mm">
+</div>
+
+
+<!-- Design on bootstrap grid -->
 <div class="row">
   <div class="col-md-2">
     <input type="text" class="form-control"
@@ -61,7 +90,8 @@
       name="location" value="location" />
   </div>
   <div class="col-md-4">
-    <span class="times form-control">(times)</span>
+    <span class="opentime form-control">(open time)</span>
+    <span class="closetime form-control">(close time)</span>
   </div>
 </div>
 
@@ -75,7 +105,8 @@
       name="location" value="location" />
   </div>
   <div class="col-md-4">
-    <span class="times form-control">(times)</span>
+    <span class="opentime form-control">(open time)</span>
+    <span class="closetime form-control">(close time)</span>
   </div>
 </div>
 
@@ -89,7 +120,23 @@
       name="location" value="location" />
   </div>
   <div class="col-md-4">
-    <span class="times form-control">(times)</span>
+    <span class="opentime form-control">(open time)</span>
+    <span class="closetime form-control">(close time)</span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <input type="text" class="form-control"
+     name="miles" value="Distance in miles"/>
+  </div>
+  <div class="col-md-4">
+    <input type="text" class="form-control"
+      name="location" value="location" />
+  </div>
+  <div class="col-md-4">
+    <span class="opentime form-control">(open time)</span>
+    <span class="closetime form-control">(close time)</span>
   </div>
 </div>
 </form>
@@ -106,8 +153,13 @@
           // ... execute this function
           function(){
               var e_miles = $(this).val();
+              var e_brevet = document.getElementById("brevet").value;
+              var e_date = document.getElementById("date").value;
+              var e_time = document.getElementById("time").value;
 
-              var target = $(this).parents(".row").find(".times");
+              //var target = $(this).parents(".row").find(".times");
+              var opentime_target = $(this).parents(".row").find(".opentime");
+              var closetime_target = $(this).parents(".row").find(".closetime");
 
               // DEBUG: How do I replace the 'times' field?
               // alert("Content of the field I want to change: " +
@@ -116,12 +168,16 @@
               // AJAX request
               $.getJSON($SCRIPT_ROOT + '/_calc_times',
                   // The object to pass to the server
-                  { miles: e_miles },
+                  { miles: e_miles, brevet: e_brevet, date: e_date, time: e_time },
+
                   // The function to call with the response
                   function(data) {
-                     var times = data.result;
+                     var sbmhdtimes = data.result;
+                     sbaim = JSON.parse(sbmhdtimes);
+                     //var closetimes = data.result
                      // alert("Got a response: " +  times);
-                     target.text(times);
+                     opentime_target.text(sbaim.sb);
+                     closetime_target.text(sbaim.mhd);
                   }); // End of the call to getJSON
           });  // End of the function to be called when field changes
               
