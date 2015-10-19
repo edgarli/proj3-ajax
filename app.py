@@ -78,24 +78,29 @@ def calc_times():
   app.logger.debug(time)
   start_date = arrow.get(date + " "+ time, "ddd MM/DD/YYYY HH:mm")
   app.logger.debug(start_date)
-  km = miles * 1.60934
+  unit = request.args.get('unit', 0,type=str)
+  app.logger.debug(unit)
+  if unit == "mile":
+    km = miles*1.60934
+  elif unit == "km":
+    km = miles
   app.logger.debug(km)
-  if km <200:
+  if km <200 and brevet == "200":
     opentime = start_date.replace(hours=+ km/34)
     closetime = start_date.replace(hours=+ km/15)
     #return jsonify(opentime, closetime)
-  elif (200 <= km <= 220):
+  elif (200 <= km <= 220 and brevet =="200"):
     opentime =  start_date.replace(hours=+ 200/34)
     closetime = start_date.replace(hours=+ 13.5)
     #return jsonify(opentime, closetime)
-  elif 220 < km:
+  elif (220 < km and brevet == "200"):
     opentime = "error"
     closetime ="error"
   elif km < 300 and brevet == "300":
     opentime = start_date.replace(hours =+ (200/34) + ((km - 200)/32))
     closetime = start_date.replace(hours=+ km/15)
       #return jsonify(opentime, closetime)
-  elif  brevet == "300" and 300< km <= 330:
+  elif  brevet == "300" and 300<= km <= 330:
     opentime = start_date.replace(hours=+ (200/34) + (100/32))
     closetime = start_date.replace(hours=+ 20)
   elif brevet == "300" and 330 < km:
@@ -104,7 +109,7 @@ def calc_times():
   elif brevet == "400" and km < 400:
     opentime = start_date.replace(hours =+(200/34) + ((km -200)/32))
     closetime = start_date.replace(hours=+ km/15)
-  elif brevet =="400" and 400 < km <= 440:
+  elif brevet =="400" and 400 <= km <= 440:
     opentime = start_date.replace(hours=+(200/34)+ (200/32))
     closetime = start_date.replace(hours=+27)
   elif brevet == "400" and 440 < km:
@@ -113,7 +118,7 @@ def calc_times():
   elif brevet == "600" and km < 600:
     opentime = start_date.replace(hours=+ (200/34) + (200/32) + ((km-400)/30))
     closetime = start_date.replace(hours=+ km/15)
-  elif brevet == "600" and 600 < km < 660:
+  elif brevet == "600" and 600 <= km <= 660:
     opentime = start_date.replace(hours=+ (200/34) + (200/32) + (200/30))
     closetime = start_date.replace(hours=+40)
       

@@ -63,6 +63,15 @@
     </select>
 </div>
 
+<div class = "row">
+  <label class ="col-md-2" for ="unit"> Unit choose </label>
+    <select class ="dropdown menu" id = "unit">
+      <option>km</option>
+      <option>mile</option>
+     </select>
+</div>
+
+
 <!--design for date -->
 <div class ="row">
 
@@ -156,6 +165,7 @@
               var e_brevet = document.getElementById("brevet").value;
               var e_date = document.getElementById("date").value;
               var e_time = document.getElementById("time").value;
+              var e_unit = document.getElementById("unit").value;
 
               //var target = $(this).parents(".row").find(".times");
               var opentime_target = $(this).parents(".row").find(".opentime");
@@ -168,7 +178,7 @@
               // AJAX request
               $.getJSON($SCRIPT_ROOT + '/_calc_times',
                   // The object to pass to the server
-                  { miles: e_miles, brevet: e_brevet, date: e_date, time: e_time },
+                  { miles: e_miles, brevet: e_brevet, date: e_date, time: e_time, unit: e_unit},
 
                   // The function to call with the response
                   function(data) {

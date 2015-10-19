@@ -13,10 +13,22 @@ We are essentially replacing the calculator at http://www.rusa.org/octime_acp.ht
 
 ## AJAX and Flask reimplementation
 
-The current RUSA controle time calculator is a Perl script that takes an HTML form and emits a text page. The reimplementation will fill in times as the input fields are filled.  Each time a distance is filled in, the corresponding open and close times should be filled in.   If no begin time has been provided, use 0:00 as the begin time. 
+The current RUSA controle time calculator is a Perl script that takes an HTML form and emits a text page. The reimplementation will fill in times as the input fields are filled.  Each time a distance is filled in, the corresponding open and close times should be filled in.
 
-I will leave much of the design to you.  
+## Requirements.txt
+Flask==0.10.1
+Jinja2==2.8
+MarkupSafe==0.23
+Werkzeug==0.10.4
+arrow==0.6.0
+itsdangerous==0.24
+python-dateutil==2.4.2
+six==1.10.0
 
-## Testing
+## introduction of rules
+this calculation app is based on ACP Brevet Control calculator algorithm. opentime output is using the maximum speed to calculate. closetime is using the minimum speed to calculate. the detail of max speed and min speed at the http://www.rusa.org/octime_alg.html.
 
-A requirement of this project will be designing a systematic test suite. 
+## notes
+ the last controle distance should be between the brevet distance and that distance plus 10%.
+ brevet distance in range of (200, 300, 400, 600, 1000)
+
